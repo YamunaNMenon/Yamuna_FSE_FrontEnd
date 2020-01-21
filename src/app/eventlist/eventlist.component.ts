@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { EventDetailsService } from "src/app/services/event-details.service";
+import { EventDetailsService } from 'src/app/services/event-details.service';
 
 @Component({
   selector: 'app-eventlist',
@@ -22,7 +22,7 @@ export class EventlistComponent implements OnInit {
       dom       : 'Bfrtip',
       buttons: [ 'copy', 'csv', 'excel', 'pdf', 'print' ],
     };
-    // const table: any = ('#table1');
+    // const table: any = $('#table1');
     this.getAllEvents();
   }
 

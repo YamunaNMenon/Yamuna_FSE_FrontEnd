@@ -15,20 +15,20 @@ export class LoginComponent implements OnInit {
   credentials = { username: '', password: '' };
   constructor(private authService: AuthenticationService,private router: Router) { }
 
-  ngOnInit() {   
-  }   
+  ngOnInit() {
+  }
 
   login() {
-    var userName  = ((document.getElementById("email") as HTMLInputElement).value);
-    var password  = ((document.getElementById("password") as HTMLInputElement).value);
-    if( userName===null || userName=== undefined || userName==="" || userName=== ""){
-      this.errorMessage = "Enter Username.";
-      alert("Enter Username");
+    const userName  = ((document.getElementById('email') as HTMLInputElement).value);
+    const password  = ((document.getElementById('password') as HTMLInputElement).value);
+    if ( userName === null || userName === undefined || userName === '' || userName === '') {
+      this.errorMessage = 'Enter Username';
+      alert('Enter Username');
       return false;
     }
-    if( password===null || password=== undefined || password==="" || password=== ""){
-      this.errorMessage = "Enter Password.";
-      alert("Enter password");
+    if ( password === null || password === undefined || password === '' || password === '') {
+      this.errorMessage = 'Enter Password';
+      alert('Enter password');
       return false;
     }
     this.saveUser(userName, password);
@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
     localStorage.setItem('password', this.credentials.password);
   }
   authenticateUser(){
-    this.authService.authenticate() ;
+    /*this.authService.authenticate() ;
     this.authService.authenticate().subscribe((userResp: User) => {
       console.log('After service call in angular');
       this.user = userResp ;
@@ -49,8 +49,12 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/dashboard']);
       }
       console.log(userResp);
-    });
-    // this.router.navigate(['/dashboard']);
+    });*/
+    this.router.navigate(['/dashboard']);
   }
+  clearMessage() {
+    this.errorMessage = '';
+  }
+
 
 }
