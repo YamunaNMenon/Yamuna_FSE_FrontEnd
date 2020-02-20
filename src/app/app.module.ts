@@ -11,19 +11,19 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { EventlistComponent } from './eventlist/eventlist.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { XhrInterceptor } from "src/app/interceptor";
+import { XhrInterceptor } from 'src/app/interceptor';
 const routes: Routes = [
-  { 
-    path: '', 
-    redirectTo: 'login', 
+  {
+    path: '',
+    redirectTo: 'login',
     pathMatch: 'full' },
-  { 
-    path: 'login',          
-    component: LoginComponent     
+  {
+    path: 'login',
+    component: LoginComponent
   },
-  { 
-    path: 'dashboard',      
-    component: DashboardComponent  
+  {
+    path: 'dashboard',
+    component: DashboardComponent
    },
    {
      path: 'eventlist',
@@ -47,7 +47,7 @@ const routes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(routes),
   ],
-  //providers: [],
+  // providers: [],
   providers: [HeaderComponent, { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })

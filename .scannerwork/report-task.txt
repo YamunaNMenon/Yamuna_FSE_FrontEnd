@@ -1,0 +1,6 @@
+projectKey=FSE_FDM
+serverUrl=http://localhost:9000
+serverVersion=7.8.0.26217
+dashboardUrl=http://localhost:9000/dashboard?id=FSE_FDM
+ceTaskId=AW_Mt04S0VW2U0Lw1sA3
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AW_Mt04S0VW2U0Lw1sA3

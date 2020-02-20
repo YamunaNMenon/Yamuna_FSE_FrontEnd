@@ -10,7 +10,7 @@ describe('EventlistComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ EventlistComponent ],
-      imports:[HttpClientTestingModule],
+      imports: [HttpClientTestingModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
     })
     .compileComponents();
@@ -23,6 +23,11 @@ describe('EventlistComponent', () => {
   });
 
   it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should call getAllEvents', () => {
+    component.getAllEvents();
     expect(component).toBeTruthy();
   });
 });
