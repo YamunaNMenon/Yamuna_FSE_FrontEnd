@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthenticationService } from '../services/authentication.service';
-import { Router } from "@angular/router";
-import { User } from "src/app/model/user";
+import { Router } from '@angular/router';
+import { User } from 'src/app/model/user';
+import { TokenStorageService } from '../services/token-storage.service';
+import { AuthenticationService } from '../services/authentication.service';
 
 
 @Component({
@@ -13,48 +14,59 @@ export class LoginComponent implements OnInit {
   errorMessage: string;
   user: User ;
   credentials = { username: '', password: '' };
-  constructor(private authService: AuthenticationService,private router: Router) { }
+
+  form: any = {};
+  isLoggedIn = false;
+  isLoginFailed = false;
+  roles: string[] = [];
+
+  constructor(private authService: AuthenticationService, private router: Router, private tokenStorage: TokenStorageService) { }
 
   ngOnInit() {
   }
 
   login() {
-    const userName  = ((document.getElementById('email') as HTMLInputElement).value);
-    const password  = ((document.getElementById('password') as HTMLInputElement).value);
-    if ( userName === null || userName === undefined || userName === '' || userName === '') {
-      this.errorMessage = 'Enter Username';
-      alert('Enter Username');
-      return false;
-    }
-    if ( password === null || password === undefined || password === '' || password === '') {
-      this.errorMessage = 'Enter Password';
-      alert('Enter password');
-      return false;
-    }
-    this.saveUser(userName, password);
-    this.authenticateUser();
-    console.log('Logged In!!!!!!') ;
-  }
-  saveUser(userName,password){
-    localStorage.setItem('username', this.credentials.username);
-    localStorage.setItem('password', this.credentials.password);
-  }
-  authenticateUser(){
-    /*this.authService.authenticate() ;
-    this.authService.authenticate().subscribe((userResp: User) => {
-      console.log('After service call in angular');
-      this.user = userResp ;
-      if (this.user.isUserAuthentic === 'true') {
-        this.authService.setUserInLocalStrorage(this.user) ;
-        this.router.navigate(['/dashboard']);
+      this.errorMessage = '' ;
+      if (this.isNullChk(this.credentials.username) && this.isNullChk(this.credentials.password)) {
+       this.errorMessage = 'Enter Username and Password';
+       return false;
+      } else if (this.isNullChk(this.credentials.username)) {
+        this.errorMessage = 'Username missing';
+        return false;
+      } else if (this.isNullChk(this.credentials.password)) {
+        this.errorMessage = 'Password missing';
+        return false;
       }
-      console.log(userResp);
-    });*/
-    this.router.navigate(['/dashboard']);
-  }
-  clearMessage() {
-    this.errorMessage = '';
-  }
+      this.saveUser(this.credentials.username, this.credentials.password);
+      this.authenticateUserDetails();
+      console.log('Login successful') ;
+    }
 
+    isNullChk(value) {
+      return value ? false : true ;
+    }
 
+    saveUser(userName, password) {
+      localStorage.setItem('username', this.credentials.username);
+      localStorage.setItem('password', this.credentials.password);
+    }
+    authenticateUserDetails() {
+      this.authService.login(this.credentials).subscribe(
+        data => {
+          this.tokenStorage.saveToken(data.token);
+          this.tokenStorage.saveUser(data);
+
+          this.isLoginFailed = false;
+          this.isLoggedIn = true;
+          this.roles = this.tokenStorage.getUser().roles;
+          this.router.navigate(['/dashboard']);
+        }
+      );
+    }
+    clearMessage() {
+      this.errorMessage = '';
+    }
+    // tslint:disable-next-line:use-lifecycle-interface
+    ngOnDestroy(): void {
+    }
 }

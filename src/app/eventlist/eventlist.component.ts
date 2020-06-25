@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EventDetailsService } from 'src/app/services/event-details.service';
+import { Subject } from 'rxjs';
+
 
 @Component({
   selector: 'app-eventlist',
@@ -9,6 +11,7 @@ import { EventDetailsService } from 'src/app/services/event-details.service';
 export class EventlistComponent implements OnInit {
   dtOptions: any = {};
   eventList: any = {};
+  dtTrig = new Subject();
 
   constructor(private eventDetailsService: EventDetailsService) {
     this.eventList = [] ;
@@ -27,10 +30,15 @@ export class EventlistComponent implements OnInit {
   }
 
   getAllEvents() {
-    this.eventDetailsService.getEventSummaryList().subscribe(eventSummaryList => {
+    this.eventDetailsService.getAllEvents$().subscribe(eventSummaryList => {
       console.log(eventSummaryList);
       this.eventList = eventSummaryList;
+      this.dtTrig.next();
     }) ;
   }
 
+  // tslint:disable-next-line:use-lifecycle-interface
+  ngOnDestroy() {
+    this.dtTrig.unsubscribe();
+  }
 }

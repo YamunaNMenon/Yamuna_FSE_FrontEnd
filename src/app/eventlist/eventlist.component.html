@@ -11,7 +11,7 @@
                 <div class="col-md-6 col-sm-12 pr-3">
                     <div class="row p-t-3">
                         <div class="col-sm-2 rounded-left icoon-box" style="background-color:#348FE2; color: #1A4772;">
-                            <em class="fa fa-envelope fa-3x"></em></div>
+                            <i class="fa fa-envelope fa-3x"></i></div>
                         <div class="col-sm-10 rounded-right event-email">
                             <h5>Email Reminder!</h5>
                             <p class="event-text">Set back and relax while the app send emails!</p>
@@ -25,8 +25,8 @@
                             <p class="event-text">This place holder can be used for adding any other actions in future.
                             </p>
                         </div>
-                        <div class="col-sm-2 rounded-right icoon-box" style="background-color:#F59C1A; color: black;"><em
-                                class="fas fa-lightbulb fa-3x"></em></div>
+                        <div class="col-sm-2 rounded-right icoon-box" style="background-color:#F59C1A; color: black;"><i
+                                class="fas fa-lightbulb fa-3x"></i></div>
                     </div>
                 </div>
             </div>
@@ -36,11 +36,11 @@
         EVENTS
     </div>
     <!-- Event list table display startes-->
-    <div style="width: 90%;margin: auto;border:solid 1px lightgray;padding: 5px">
-        <table datatable class="table table-striped table-bordered table-sm row-border hover" id="table1">
+    <div>
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrig" class="table table-striped table-bordered table-sm row-border hover" id="table1">
             <thead>
                 <tr>
-                    <th>Action</th>
+
                     <th>Event ID</th>
                     <th>Month</th>
                     <th>Base Location</th>
@@ -49,29 +49,13 @@
                 </tr>
             </thead>
             <tbody>
-                <!--<tr >
-                    <td>Action</td>
-                    <td>EVNT00978690</td>
-                    <td>DEC</td>
-                    <td>UNITED KINGDOM</td>
-                    <td>OUTREACH UK</td>
-                    <td>St. Edward CE Voluntary Aided Primary School</td>
-                </tr>
-                <tr >
-                    <td>Action</td>
-                    <td>EVNT8987678045</td>
-                    <td>FEB</td>
-                    <td>SINGAPORE</td>
-                    <td>OUTREACH SINGAPORE</td>
-                    <td>KWONG HAWEI HOSPITAL</td>
-                </tr> -->
                 <tr *ngFor="let event of eventList">
-                        <td>Action</td>
-                        <td>{{event.eventId}}</td>
-                        <td>{{event.eventMonth}}</td>
-                        <td>{{event.baseLocation}}</td>
-                        <td>{{event.councilName}}</td>
-                        <td>{{event.beneficiaryName}}</td>
+
+                  <td>{{event.eventId}}</td>
+                  <td>{{event.eventMonth}}</td>
+                  <td>{{event.baseLocation}}</td>
+                  <td>{{event.councilName}}</td>
+                  <td>{{event.beneficiaryName}}</td>
                 </tr>
             </tbody>
         </table>

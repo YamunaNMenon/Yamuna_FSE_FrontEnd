@@ -10,11 +10,11 @@
                             <p class="text-muted mb-4 faded-text-color">Feedback management system</p>
                             <!--<form>-->
                             <form role="form" (submit)="login()">
-                                <div class="form-group">                                   
-                                    <input type="text" class="form-control"  id="email" placeholder="Email Address">
+                                <div class="form-group">
+                                    <input type="text" class="form-control"  id="email" placeholder="Username" [(ngModel)] = "credentials.username" name="username">
                                 </div>
-                                <div class="form-group">                                   
-                                    <input type="password" class="form-control"  id="password" placeholder="Password">
+                                <div class="form-group">
+                                    <input type="password" class="form-control"  id="password" placeholder="Password" [(ngModel)] = "credentials.password" name="password">
                                 </div>
                                 <div class="form-group">
                                     <input type="checkbox" value="lsRememberMe" id="rememberMe" style="display: inline-block;"> &nbsp;

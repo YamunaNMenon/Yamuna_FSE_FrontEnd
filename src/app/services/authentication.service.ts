@@ -1,22 +1,28 @@
 import { Injectable } from '@angular/core';
-import { environment } from "src/environments/environment";
-import { Observable } from "rxjs";
-import { HttpClient } from '@angular/common/http';
-import { User } from "src/app/model/user";
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ServiceConstants } from '../shared/constants/service.constants';
+import { Observable } from 'rxjs';
 
+const AUTH_API = ServiceConstants.BASE_URL + ServiceConstants.AUTH_URL;
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
 
-  private authServerUrl = environment.authServerUrl;
-  private user: User;
+  constructor(private http: HttpClient) { }
 
-  constructor(private httpClient: HttpClient) { }
-  authenticate(): Observable<any> {
-    return this.httpClient.get<User>(this.authServerUrl + 'login');
+  login(credentials): Observable<any> {
+    return this.http.post(AUTH_API , {
+      username: credentials.username,
+      password: credentials.password
+    }, httpOptions);
   }
+
   setUserInLocalStrorage(user) {
     localStorage.setItem('name', user.name);
     localStorage.setItem('email', user.emailId);
